@@ -72,15 +72,24 @@ const App = () => {
       return
     }
 
-    personService.create(newPerson).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson))
-      setNewName('')
-      setNewNumber('')
-      setMessage(`Added ${returnedPerson.name}`)
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    })
+    personService
+      .create(newPerson)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+        setMessage(`Added ${returnedPerson.name}`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+        setMessage(error.response.data.error)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
   }
 
   const handleDelete = (id, name) => {
