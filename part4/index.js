@@ -3,15 +3,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
-
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number,
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
+require('dotenv').config()
+const Blog = require('./models/blog')
 
 const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, {
@@ -31,6 +24,7 @@ app.get('/api/blogs', (request, response) => {
 })
 
 app.post('/api/blogs', (request, response) => {
+  console.log(request.body)
   const blog = new Blog(request.body)
 
   blog.save().then((result) => {
