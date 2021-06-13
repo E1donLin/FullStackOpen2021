@@ -3,8 +3,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const blogRouter = require('./controllers/blogs')
 require('dotenv').config()
-const Blog = require('./models/blog')
 
 const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, {
@@ -16,23 +16,10 @@ mongoose.connect(mongoUrl, {
 
 app.use(cors())
 app.use(express.json())
-
-app.get('/api/blogs', (request, response) => {
-  Blog.find({}).then((blogs) => {
-    response.json(blogs)
-  })
-})
-
-app.post('/api/blogs', (request, response) => {
-  console.log(request.body)
-  const blog = new Blog(request.body)
-
-  blog.save().then((result) => {
-    response.status(201).json(result)
-  })
-})
+app.use('/api/blogs', blogRouter)
 
 const PORT = 3003
-app.listen(PORT, () => {
+const server = http.createServer(app)
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
