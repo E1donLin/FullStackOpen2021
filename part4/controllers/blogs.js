@@ -31,10 +31,8 @@ blogRouter.post('/', async (request, response) => {
 
 blogRouter.delete('/:id', async (req, res) => {
   const user = req.user
-  console.log(user)
 
   const blog = await Blog.findById(req.params.id)
-  console.log(blog)
 
   if (blog.user.toString() !== user.id) {
     // eslint-disable-next-line quotes
