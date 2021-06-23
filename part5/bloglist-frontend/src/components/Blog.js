@@ -38,17 +38,21 @@ const Blog = ({ blog, updateBlogs }) => {
     <>
       {blog.url}
       <br />
-      {blog.likes}
-      <button onClick={() => handleLike()}>like</button>
+      <span id="like-counts">likes: {blog.likes}</span>
+      <button id="like-button" onClick={() => handleLike()}>
+        like
+      </button>
       <br />
       {blog.author}
       <br />
-      <button onClick={() => handleRemove()}>remove</button>
+      <button id="remove-button" onClick={() => handleRemove()}>
+        remove
+      </button>
     </>
   )
 
   return (
-    <div style={blogStyle}>
+    <div className="blog" style={blogStyle}>
       {blog.title} {blog.author}
       <button onClick={() => setVisible(!visible)}>
         {visible ? 'hide' : 'view'}

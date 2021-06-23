@@ -21,7 +21,7 @@ const Notification = ({ message, type }) => {
     marginBottom: 10,
   }
 
-  if (message == null) return null
+  if (message === null) return null
 
   if (type === 'error') {
     return <div style={errorStyle}>{message}</div>
