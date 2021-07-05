@@ -9,6 +9,8 @@ const notificationReducer = (state = '', action) => {
   }
 }
 
+let cancelTimer
+
 export const setNotification = (message, time) => {
   return async (dispatch) => {
     dispatch({
@@ -16,7 +18,11 @@ export const setNotification = (message, time) => {
       message,
     })
 
-    setTimeout(
+    if (cancelTimer) {
+      clearTimeout(cancelTimer)
+    }
+
+    cancelTimer = setTimeout(
       () =>
         dispatch({
           type: 'RESET_NOTIFICATION',
